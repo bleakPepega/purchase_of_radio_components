@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title My App
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    = stylesheet_link_tag 'tailwind', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_tag 'application', 'data-turbolinks-track': 'reload'
+    = csrf_meta_tags
+    = csp_meta_tag
+
+
+  body
+    = yield
