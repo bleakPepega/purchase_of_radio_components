@@ -8,17 +8,67 @@ div.flex.justify-between
 
 
 
+.navbar
+  .flex.justify-between.bg-gray-400.w-full.font-bold
+    a.flex href="/about"
+      | About
+    a.flex href="/about"
+      | Calculator
+    a.flex href="/about"
+      | Contacts
+    a.flex href="/about"
+      | Helpful information
+table.table-auto
+  thead
+    tr
+      th.px-4.py-2 USD
+      th.px-4.py-2 EUR
+  tbody
+    - @arrayWithMoney.each_slice(3) do |row|
+      tr
+        - row.each do |cell|
+          td.px-4.py-2 = cell
+
+table
+  thead
+    tr
+      th.font-bold.Tracking-wide.uppercase Metal
+      th.font-bold.Tracking-wide.uppercase Code
+      th.font-bold.Tracking-wide.uppercase Price per ounce
+  tbody
+    tr
+      td.font-bold.Tracking-wide.uppercase Gold
+      td.font-bold.Tracking-wide.uppercase XAU
+      td.font-bold.Tracking-wide.uppercase = number_to_currency(@gold_price, precision: 2)
+    tr
+      td.font-bold.Tracking-wide.uppercase Silver
+      td.font-bold.Tracking-wide.uppercase XAG
+      td.font-bold.Tracking-wide.uppercase = number_to_currency(@silver_price, precision: 2)
+    tr
+      td.font-bold.Tracking-wide.uppercase Platinum
+      td.font-bold.Tracking-wide.uppercase XPT
+      td.font-bold.Tracking-wide.uppercase = number_to_currency(@platinum, precision: 2)
+    tr
+      td.font-bold.Tracking-wide.uppercase Palladium
+      td.font-bold.Tracking-wide.uppercase XPD
+      td.font-bold.Tracking-wide.uppercase = number_to_currency(@palladium, precision: 2)
 
 
+div#carousel
+  div
+    img src="image1.jpg"
+    p First message
+  div
+    img src="image2.jpg"
+    p Second message
+  div
+    img src="image3.jpg"
+    p Third message
 
-
-.flex.justify-between.bg-gray-400.w-full.font-bold
-  .flex
-    | About
-  .flex
-    | Calculator
-  .flex
-    | Contacts
-  .flex
-    | Helpful information
-
+/ div.flex.justify-between
+/   .flex.justify-start
+/     h2 Скупка радио деталей
+/   .flex.h-1/4.p-2.bg-gray-800.text-white.font-bold.justify-end
+/     div.flex.flex-col
+/       p.mb-4 +7777777777
+/       p.text-sm.text-gray-800 test@gmail.com

@@ -1,0 +1,12 @@
+
+<h2> Скупка радио деталей</h2>
+<header>
+  <table>
+    <tr>
+      <% @fields.each do |field| %>
+        <td><%= field %></td>
+        <td><%= instance_variable_get("@#{field.downcase.gsub(' ', '_')}") %></td>
+      <% end %>
+    </tr>
+  </table>
+</header>

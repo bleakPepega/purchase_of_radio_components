@@ -1,0 +1,16 @@
+current directory: /home/sad/RubymineProjects/untitled4/vendor/bundle/ruby/3.0.0/gems/debug-1.6.2/ext/debug
+/usr/bin/ruby -I /usr/lib/ruby/3.0.0 extconf.rb
+creating Makefile
+
+current directory: /home/sad/RubymineProjects/untitled4/vendor/bundle/ruby/3.0.0/gems/debug-1.6.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20230214-37823-f7ptbh sitelibdir\=./.gem.20230214-37823-f7ptbh clean
+
+current directory: /home/sad/RubymineProjects/untitled4/vendor/bundle/ruby/3.0.0/gems/debug-1.6.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20230214-37823-f7ptbh sitelibdir\=./.gem.20230214-37823-f7ptbh
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /home/sad/RubymineProjects/untitled4/vendor/bundle/ruby/3.0.0/gems/debug-1.6.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20230214-37823-f7ptbh sitelibdir\=./.gem.20230214-37823-f7ptbh install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20230214-37823-f7ptbh/debug
