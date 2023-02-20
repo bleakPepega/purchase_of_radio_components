@@ -22,6 +22,10 @@ gem "jsbundling-rails", "~> 1.1"
 gem "cssbundling-rails", "~> 1.1"
 gem "rails-i18n", "~> 7"
 gem "jquery-slick-rails"
+gem 'roo'
+gem "rexml"
+gem 'stimulus-rails'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
