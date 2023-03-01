@@ -1,92 +1,99 @@
 div.flex.justify-between
   .flex.justify-start
     h2 Скупка радио деталей
-  .flex.h-1/4.p-2.text-black.font-bold.justify-end
+  .flex.h-1/4.p-2.text-black.font-bold.justify-end.bg-blue-400
     div.flex.flex-col
       p.mb-4 +7777777777
       p.text-sm.text-gray-800 test@gmail.com
 
 
 
-.navbar
-  .flex.justify-between.bg-gray-400.w-full.font-bold
-    a.flex href="/about"
-      | About
-    a.flex href="/calculator"
-      | Calculator
-    a.flex href="/contacts"
-      | Contacts
-    a.flex href="/information"
-      | Helpful information
+.navbar.flex.justify-between.font-bold.border.border-4.border-black-500
+  a.flex href="/about"
+    | About
+  a.flex href="/calculator"
+    | Calculator
+  a.flex href="/contacts"
+    | Contacts
+  a.flex href="/information"
+    | Helpful information
 
 
-div.flex.justify-between
-  table.table-auto.flex.justify-start
-    thead
+
+
+table.table-auto.flex(style="border-spacing: 0 8px;")
+  thead
+    tr
+      th.px-4.py-2 USD
+      th.px-4.py-2 EUR
+  tbody
+    - @arrayWithMoney.each_slice(3) do |row|
       tr
-        th.px-4.py-2 USD
-        th.px-4.py-2 EUR
-    tbody
-      - @arrayWithMoney.each_slice(3) do |row|
-        tr
-          - row.each do |cell|
-            td.px-4.py-2 = cell
+        - row.each do |cell|
+          td.px-4.py-2(style="border: 1px solid #ccc;") = cell
 
-    table.justify-end
-      thead
-        tr
-          th.font-bold.Tracking-wide.uppercase Metal
-          th.font-bold.Tracking-wide.uppercase Code
-          th.font-bold.Tracking-wide.uppercase Price per ounce
-      tbody
-        tr
-          td.font-bold.Tracking-wide.uppercase Gold
-          td.font-bold.Tracking-wide.uppercase XAU
-          td.font-bold.Tracking-wide.uppercase = number_to_currency(@gold_price, precision: 2)
-        tr
-          td.font-bold.Tracking-wide.uppercase Silver
-          td.font-bold.Tracking-wide.uppercase XAG
-          td.font-bold.Tracking-wide.uppercase = number_to_currency(@silver_price, precision: 2)
-        tr
-          td.font-bold.Tracking-wide.uppercase Platinum
-          td.font-bold.Tracking-wide.uppercase XPT
-          td.font-bold.Tracking-wide.uppercase = number_to_currency(@platinum, precision: 2)
-        tr
-          td.font-bold.Tracking-wide.uppercase Palladium
-          td.font-bold.Tracking-wide.uppercase XPD
-          td.font-bold.Tracking-wide.uppercase = number_to_currency(@palladium, precision: 2)
+table(style="border-spacing: 0 8px;")
+  thead
+    tr
+      th.font-bold.Tracking-wide.uppercase Metal
+      th.font-bold.Tracking-wide.uppercase Code
+      th.font-bold.Tracking-wide.uppercase Price per ounce
+  tbody
+    tr
+      td.font-bold.Tracking-wide.uppercase (style="border: 1px solid #ccc;")Gold
+      td.font-bold.Tracking-wide.uppercase (style="border: 1px solid #ccc;")XAU
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.gold.to_f, precision: 2)
+    tr
+      td.font-bold.Tracking-wide.uppercase Silver
+      td.font-bold.Tracking-wide.uppercase XAG
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.silver, precision: 2)
+    tr
+      td.font-bold.Tracking-wide.uppercase Platinum
+      td.font-bold.Tracking-wide.uppercase XPT
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.platinum, precision: 2)
+    tr
+      td.font-bold.Tracking-wide.uppercase Palladium
+      td.font-bold.Tracking-wide.uppercase XPD
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.palladium, precision: 2)
 
-.calculator
-  .form-group
+
+.calculator(data-controller="calculator_controller")
+  .form-group.border.p-4.rounded-lg
     label.block.font-bold.mb-2(for="group") Группа элементов
     select.form-select.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="group")
       option(value="condensers") Конденсаторы
       option(value="lamps") Лампы
       option(value="switches") Переключатели
       option(value="relays") Реле
-      .form-group
+
+      .form-group.border.p-4.rounded-lg.mt-4
         label.block.font-bold.mb-2(for="element") Наименование элемента
         select.form-select.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="element")
-          .form-group
+
+          .form-group.border.p-4.rounded-lg.mt-4
             label.block.font-bold.mb-2(for="year") Год выпуска
             .radio-buttons(data-controller="year")
               input(type="radio" value="before_1990" name="year" data-action="change->calculator#updateState") До 1990 г.
               input(type="radio" value="1990-2000" name="year" data-action="change->calculator#updateState") 1990-2000
               input(type="radio" value="after_2000" name="year" data-action="change->calculator#updateState") После 2000 г.
-          .form-group
+
+          .form-group.border.p-4.rounded-lg.mt-4
             label.block.font-bold.mb-2(for="condition") Состояние
             .radio-buttons(data-controller="condition")
               input(type="radio" value="new" name="condition" data-action="change->calculator#updateState") Новый
               input(type="radio" value="used" name="condition" data-action="change->calculator#updateState") Б/у
-          .form-group
-            label.block.font-bold.mb-2(for="payment") Условие сдачи
-            select.form-select.w-full.py-2.px-3.border.border-gray-300.rounded
 
-- messages = [  { text: "Welcome to my website", image: image_tag("image1.jpg") },  { text: "Check out our latest products", image: image_tag("image2.jpg") },  { text: "Sign up for our newsletter", image: image_tag("image3.jpg") }]
+          .form-group.border.p-4.rounded-lg.mt-4
+            label.block.font-bold.mb-2(for="quantity") Количество
+            input.form-input.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="quantity" type="text")
+
+
+
+        - messages = [  { text: "Welcome to my website", image: image_tag("image1.jpg") },  { text: "Check out our latest products", image: image_tag("image2.jpg") },  { text: "Sign up for our newsletter", image: image_tag("image3.jpg") }]
 
 div data-controller="carousel" class="swiper-container" data-carousel-options-value='{"direction": "vertical"}'
   div class="swiper-wrapper"
-    div class=image_tag("image1.jpg") Slide 1
+    div class="swiper-slide" Slide 1
     div class="swiper-slide" Slide 2
     div class="swiper-slide" Slide 3
 
@@ -99,10 +106,6 @@ footer style="position: fixed; bottom: 0; left: 0; right: 0;"
         p.mb-4 +7777777777
         p.text-sm.text-gray-800 test@gmail.com
 
-/ div.flex.justify-between
-/   .flex.justify-start
-/     h2 Скупка радио деталей
-/   .flex.h-1/4.p-2.bg-gray-800.text-white.font-bold.justify-end
-/     div.flex.flex-col
-/       p.mb-4 +7777777777
-/       p.text-sm.text-gray-800 test@gmail.com
+div data-controller="hello"
+  input data-hello-target="name" type="text"
+  button data-action="click->hello#greet"Greet
