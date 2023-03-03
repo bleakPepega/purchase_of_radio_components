@@ -1,0 +1,9 @@
+class CreateCurrentDates < ActiveRecord::Migration[7.0]
+  def change
+    create_table :current_dates do |t|
+      t.date :date
+
+      t.timestamps
+    end
+  end
+end

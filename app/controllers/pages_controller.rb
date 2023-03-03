@@ -4,8 +4,9 @@ class PagesController < ApplicationController
   require 'date'
   require 'net/http'
   require 'json'
+  require 'open-uri'
   def index
-    require 'open-uri'
+    @group_value
     url = 'http://www.cbr.ru/scripts/XML_daily.asp?date_req='
     html = URI.open(url)
     doc = Nokogiri::HTML(html)
@@ -22,10 +23,11 @@ class PagesController < ApplicationController
         @arrayWithMoney << value
       end
     end
-    q = CurrentDates.get_last_date
-    if (q - Date.today) != (0/1)
+    current_dates = CurrentDates.get_last_date
+    if (current_dates - Date.today) != (0/1)
       update_price
     end
+    dropping_list
   end
 
   def update_price
@@ -50,5 +52,40 @@ class PagesController < ApplicationController
     CurrentDates.delete_all
     current_dates.save!
   end
+  def dropping_list
+    @group = Product.pluck(:group).uniq
 
-end
+  end
+  def autocomplete_data
+    autocomplete_data = Product.pluck(:group).uniq
+    render json: autocomplete_data
+  end
+  def process_group_value
+    group_value = params[:group]
+    a = Product.where(group: group_value).pluck(:name).uniq
+    render json: a
+  end
+  def process_input_value
+    input_value = params[:value]['name']
+    quantityValue = params[:value]['quantity'].to_i
+    p input_value
+    p quantityValue
+    gold = Product.where(name: input_value).pluck(:gold)
+    silver = Product.where(name: input_value).pluck(:silver)
+    platinum = Product.where(name: input_value).pluck(:platinum)
+    mpg = Product.where(name: input_value).pluck(:mpg)
+    p gold
+    finaly_cost = gold[0] * MetalPrice.pluck(:gold)[0] + silver[0] * MetalPrice.pluck(:silver)[0]  + platinum[0] * MetalPrice.pluck(:platinum)[0] + mpg[0] * MetalPrice.pluck(:palladium)[0]
+    finaly_cost *= quantityValue
+    if params[:value]['year'] == "card"
+      finaly_cost *= 0.94
+    end
+    finaly_cost = finaly_cost.ceil(2)
+    render json: finaly_cost
+
+
+  end
+
+
+
+  end

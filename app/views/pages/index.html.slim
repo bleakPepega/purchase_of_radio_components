@@ -8,9 +8,10 @@ div.flex.justify-between
 
 
 
-.navbar.flex.justify-between.font-bold.border.border-4.border-black-500
+.navbar.flex.justify-between.font-bold.border.border-4.border-black
   a.flex href="/about"
     | About
+  .flex.w-1.h-full.bg-black
   a.flex href="/calculator"
     | Calculator
   a.flex href="/contacts"
@@ -21,16 +22,25 @@ div.flex.justify-between
 
 
 
-table.table-auto.flex(style="border-spacing: 0 8px;")
+.table.border-separated.border.border-state-500
+  - @arrayWithMoney.each_slice(3) do |row|
+    div.bg-gray-100.p-4.rounded-md.border.border-gray-300
+      table.table-auto.flex
+        thead
+        tbody
+          tr
+            th.px-4.py-2 USD
+            th.px-4.py-2 EUR
+        tbody
+          tr
+            - row.each do |cell|
+              td.px-4.py-2(style="border: 1px solid #ccc;") = cell
+
+
+.table.border-separated.border.border-state-500
   thead
     tr
-      th.px-4.py-2 USD
-      th.px-4.py-2 EUR
-  tbody
-    - @arrayWithMoney.each_slice(3) do |row|
-      tr
-        - row.each do |cell|
-          td.px-4.py-2(style="border: 1px solid #ccc;") = cell
+      th.border.border-state-600
 
 table(style="border-spacing: 0 8px;")
   thead
@@ -42,62 +52,67 @@ table(style="border-spacing: 0 8px;")
     tr
       td.font-bold.Tracking-wide.uppercase (style="border: 1px solid #ccc;")Gold
       td.font-bold.Tracking-wide.uppercase (style="border: 1px solid #ccc;")XAU
-      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.gold.to_f, precision: 2)
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.gold.to_f, precision: 5)
     tr
       td.font-bold.Tracking-wide.uppercase Silver
       td.font-bold.Tracking-wide.uppercase XAG
-      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.silver, precision: 2)
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.silver, precision: 5)
     tr
       td.font-bold.Tracking-wide.uppercase Platinum
       td.font-bold.Tracking-wide.uppercase XPT
-      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.platinum, precision: 2)
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.platinum, precision: 5)
     tr
       td.font-bold.Tracking-wide.uppercase Palladium
       td.font-bold.Tracking-wide.uppercase XPD
-      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.palladium, precision: 2)
+      td.font-bold.Tracking-wide.uppercase(style="border: 1px solid #ccc;") = number_to_currency(MetalPrice.first.palladium, precision: 5)
 
-
-.calculator(data-controller="calculator_controller")
+.calculator(data-controller="")
   .form-group.border.p-4.rounded-lg
     label.block.font-bold.mb-2(for="group") Группа элементов
-    select.form-select.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="group")
-      option(value="condensers") Конденсаторы
-      option(value="lamps") Лампы
-      option(value="switches") Переключатели
-      option(value="relays") Реле
-
+    select.form-select.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="groupSelect"  data-target="autocomplete.groupSelect" data-action="change->autocomplete#selectGroup" data-controller="autocomplete")
+      - @group.each do |item|
+        option(value="#{item}")= item
       .form-group.border.p-4.rounded-lg.mt-4
         label.block.font-bold.mb-2(for="element") Наименование элемента
         select.form-select.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="element")
-
           .form-group.border.p-4.rounded-lg.mt-4
             label.block.font-bold.mb-2(for="year") Год выпуска
             .radio-buttons(data-controller="year")
               input(type="radio" value="before_1990" name="year" data-action="change->calculator#updateState") До 1990 г.
               input(type="radio" value="1990-2000" name="year" data-action="change->calculator#updateState") 1990-2000
               input(type="radio" value="after_2000" name="year" data-action="change->calculator#updateState") После 2000 г.
-
           .form-group.border.p-4.rounded-lg.mt-4
             label.block.font-bold.mb-2(for="condition") Состояние
             .radio-buttons(data-controller="condition")
               input(type="radio" value="new" name="condition" data-action="change->calculator#updateState") Новый
               input(type="radio" value="used" name="condition" data-action="change->calculator#updateState") Б/у
-
-          .form-group.border.p-4.rounded-lg.mt-4
+          .form-group.border.p-4.rounded-lg.mt-4(data-controller="hello")
             label.block.font-bold.mb-2(for="quantity") Количество
-            input.form-input.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="quantity" type="text")
+            input.form-input.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="quantityInput" type="text" data-target="hello.quantityInput" list="autocompleteDatalist")
+            .form-group.border.p-4.rounded-lg.mt-4
+              label.block.font-bold.mb-2(for="autocomplete.datalist") Наименование
+              input.form-input.w-full.py-2.px-3.border.border-gray-300.rounded-md.shadow-sm.focus:outline-none.focus:ring-2.focus:ring-blue-200.focus:border-blue-500(id="test" type="text" data-target="hello.input" list="autocomplete-datalist")
+                datalist#autocomplete-datalist(data-target="hello.autocompleteDatalist")
+                button.btn.btn-primary(type="button" data-action="click->hello#submit") Вывести значение
+                .form-group.border.p-4.rounded-lg.mt-4
+                  label.block.font-bold.mb-2(for="year") Сдача
+                  .radio-buttons(data-controller="year")
+                    input(type="radio" value="card" name="pay" data-action="change->calculator#updateState") Безнал
+                    input(type="radio" value="cash" name="pay" data-action="change->calculator#updateState") Нал
+              div(data-target="hello.output")
 
 
 
-        - messages = [  { text: "Welcome to my website", image: image_tag("image1.jpg") },  { text: "Check out our latest products", image: image_tag("image2.jpg") },  { text: "Sign up for our newsletter", image: image_tag("image3.jpg") }]
 
-div data-controller="carousel" class="swiper-container" data-carousel-options-value='{"direction": "vertical"}'
+- messages = [image_tag("image1.jpg"), image_tag("image2.jpg"),image_tag("image3.jpg")]
+
+div data-controller="carousel" class="swiper-container"
   div class="swiper-wrapper"
-    div class="swiper-slide" Slide 1
-    div class="swiper-slide" Slide 2
+    div class=image_tag("image1.jpg") Slide 1
+    div class=image_tag("image2.jpg") Slide 2
     div class="swiper-slide" Slide 3
 
-footer style="position: fixed; bottom: 0; left: 0; right: 0;"
+footer style=" bottom: 0; left: 0; right: 0;"
   div.flex.justify-between
     div.flex.justify-start
       h2 Скупка радио деталей
@@ -106,6 +121,6 @@ footer style="position: fixed; bottom: 0; left: 0; right: 0;"
         p.mb-4 +7777777777
         p.text-sm.text-gray-800 test@gmail.com
 
-div data-controller="hello"
-  input data-hello-target="name" type="text"
-  button data-action="click->hello#greet"Greet
+/ div data-controller="hello"
+/   p test
+

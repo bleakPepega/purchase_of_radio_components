@@ -1,0 +1,2 @@
+class MetalPrice < ApplicationRecord
+end
