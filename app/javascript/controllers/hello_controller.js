@@ -5,6 +5,7 @@ export default class extends Controller {
     static targets = ["input", "autocompleteDatalist", "group", "output", "quantityInput"];
 
     connect() {
+        console.log("pqwjpqjpjpwjdppqwjdjpqwjdpqd")
         this.loadData();
     }
     submit() {
@@ -12,15 +13,12 @@ export default class extends Controller {
         const kol = this.quantityInputTarget.value
         const year = this.getSelectedYear()
         const data = { name: inputValue, quantity: kol, year: year }
-        this.outputTarget.textContent = `Значение поля: ${inputValue}`
-        console.log(data)
         axios.post('/process_input_value', { value: data})
             .then(response => {
                 console.log(response.data)
+                this.outputTarget.textContent = `Зн: ${response.data}`
             })
     }
-
-
     loadData() {
         fetch('/pages/autocomplete_data')
             .then(response => response.json())

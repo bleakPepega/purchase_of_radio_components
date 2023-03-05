@@ -6,23 +6,7 @@ class PagesController < ApplicationController
   require 'json'
   require 'open-uri'
   def index
-    @group_value
-    url = 'http://www.cbr.ru/scripts/XML_daily.asp?date_req='
-    html = URI.open(url)
-    doc = Nokogiri::HTML(html)
-    valcurs = doc.at('valcurs')
-    currencies = valcurs.css('valute')
-    @arrayWithMoney = []
-    currencies.each do |currency|
-      code = currency.at('charcode').text
-      name = currency.at('name').text
-      value = currency.at('value').text
-      if code == "USD" or code == "EUR"
-        # @arrayWithMoney << name
-        # @arrayWithMoney << code
-        @arrayWithMoney << value
-      end
-    end
+    array_with_money
     current_dates = CurrentDates.get_last_date
     if (current_dates - Date.today) != (0/1)
       update_price
@@ -34,10 +18,10 @@ class PagesController < ApplicationController
     url = "https://metals-api.com/api/latest?access_key=9a9o992r9b7d3s255g6rfpn368yzoixc2t73v6q18blu9h634an6bsi59e2r&symbols=XAU,XAG,XPT,XPD"
     response = Net::HTTP.get_response(URI.parse(url))
     result = JSON.parse(response.body)
-    gold_price = result["rates"]["XAU"]
-    silver_price = result["rates"]["XAG"]
-    platinum = result["rates"]["XPT"]
-    palladium = result["rates"]["XPD"]
+    gold_price = 1 / result["rates"]["XAU"]
+    silver_price = 1 / result["rates"]["XAG"]
+    platinum = 1 / result["rates"]["XPT"]
+    palladium = 1 / result["rates"]["XPD"]
     prices = MetalPrice.new(
       gold: gold_price,
       platinum: platinum,
@@ -60,32 +44,40 @@ class PagesController < ApplicationController
     autocomplete_data = Product.pluck(:group).uniq
     render json: autocomplete_data
   end
+  
   def process_group_value
     group_value = params[:group]
     a = Product.where(group: group_value).pluck(:name).uniq
     render json: a
   end
+
   def process_input_value
-    input_value = params[:value]['name']
-    quantityValue = params[:value]['quantity'].to_i
-    p input_value
-    p quantityValue
-    gold = Product.where(name: input_value).pluck(:gold)
-    silver = Product.where(name: input_value).pluck(:silver)
-    platinum = Product.where(name: input_value).pluck(:platinum)
-    mpg = Product.where(name: input_value).pluck(:mpg)
-    p gold
-    finaly_cost = gold[0] * MetalPrice.pluck(:gold)[0] + silver[0] * MetalPrice.pluck(:silver)[0]  + platinum[0] * MetalPrice.pluck(:platinum)[0] + mpg[0] * MetalPrice.pluck(:palladium)[0]
-    finaly_cost *= quantityValue
-    if params[:value]['year'] == "card"
-      finaly_cost *= 0.94
+    finally_cost = formula_for_calculation
+    render json: finally_cost
+  end
+
+  private
+
+  def array_with_money
+    url = 'http://www.cbr.ru/scripts/XML_daily.asp?date_req='
+    response = Net::HTTP.get_response(URI.parse(url))
+    xml = Hash.from_xml(response.body)
+    currencies = xml['ValCurs']['Valute']
+    @arrayWithMoney = currencies.select do |currency|
+      code = currency['CharCode']
+      code == "USD" || code == "EUR"
+    end.map do |currency|
+      currency['Value'].gsub(',', '.').to_f.round(2)
     end
-    finaly_cost = finaly_cost.ceil(2)
-    render json: finaly_cost
-
-
+  end
+  def formula_for_calculation
+    input_value = params[:value]['name']
+    quantity_value = params[:value]['quantity'].to_i
+    usd = array_with_money
+    gold, silver, platinum, mpg = Product.where(name: input_value).pluck(:gold, :silver, :platinum, :mpg).flatten
+    finally_cost = (gold / 28.3495 * MetalPrice.pluck(:gold)[0] + silver / 28.3495 * MetalPrice.pluck(:silver)[0]  + platinum / 28.3495 * MetalPrice.pluck(:platinum)[0] + mpg / 28.3495 * MetalPrice.pluck(:palladium)[0]) * quantity_value * usd[0].to_f
+    finally_cost *= 0.94 if params[:value]['year'] == "card"
+    finally_cost.ceil(2)
   end
 
-
-
-  end
+end
