@@ -13,9 +13,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
 gem "slim-rails"
 gem "tailwindcss-rails"
-gem "irb"
 gem "reline"
-gem "io-console"
 gem "racc"
 gem 'sprockets-rails', "~> 3.4"
 gem "jsbundling-rails", "~> 1.1"
@@ -57,5 +55,7 @@ end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "pry"
+  gem "pry-rails"
 end
 
