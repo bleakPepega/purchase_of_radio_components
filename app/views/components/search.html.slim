@@ -1,0 +1,4 @@
+.flex.flex-col.absolute.z-10.bg-white.items-start.justify-start.w-full
+  - @components.each do |component|
+      li.z-10.w-full.border.text-left.p-2.hover:cursor-pointer.hover:bg-gray-100 data-autocomplete-value= component.id role='option'
+        = component.name

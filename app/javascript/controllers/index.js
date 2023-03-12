@@ -4,14 +4,18 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-import Autocomplete_controller from "./autocomplete_controller"
-import Carousel_controller from "./carousel_controller"
-import Test_controller from "./test_controller"
-import Carousel from "stimulus-carousel"
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)
 
+import Carousel from "stimulus-carousel"
 application.register("carousel", Carousel)
+
+import HelloController from "./hello_controller"
 application.register("hello", HelloController)
-application.register("autocomplete", Autocomplete_controller)
-application.register("carousel1", Carousel_controller)
-application.register("car", Test_controller)
+
+
+import TestController from "./test_controller"
+application.register("test", TestController)
+
+import { Autocomplete } from 'stimulus-autocomplete'
+application.register('autocomplete', Autocomplete)

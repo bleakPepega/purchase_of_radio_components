@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_28_203023) do
-  create_table "calculations", force: :cascade do |t|
-    t.string "type"
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_205723) do
+  create_table "components", force: :cascade do |t|
+    t.string "group"
+    t.string "subgroup"
     t.string "name"
-    t.float "weight"
-    t.float "cost"
-    t.date "release_date"
-    t.string "condition"
+    t.float "gold"
+    t.float "silver"
+    t.float "platinum"
+    t.float "mpg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,18 +34,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_203023) do
     t.decimal "platinum"
     t.decimal "silver"
     t.decimal "palladium"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "products", force: :cascade do |t|
-    t.string "group"
-    t.string "subgroup"
-    t.string "name"
-    t.float "gold"
-    t.float "silver"
-    t.float "platinum"
-    t.float "mpg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

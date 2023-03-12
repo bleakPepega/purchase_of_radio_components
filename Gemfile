@@ -13,9 +13,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
 gem "slim-rails"
 gem "tailwindcss-rails"
-gem "irb"
 gem "reline"
-gem "io-console"
 gem "racc"
 gem 'sprockets-rails', "~> 3.4"
 gem "jsbundling-rails", "~> 1.1"
@@ -24,6 +22,7 @@ gem "rails-i18n", "~> 7"
 gem 'roo'
 gem "rexml"
 gem 'stimulus-rails'
+gem 'material_icons'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -57,5 +56,7 @@ end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "pry"
+  gem "pry-rails"
 end
 

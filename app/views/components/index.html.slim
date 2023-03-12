@@ -1,0 +1,77 @@
+= render partial: 'slider'
+
+= render partial: 'exchanges_ranges_table', locals: {currencies: @currencies, metal_prices: @metal_prices}
+
+.flex.flex-row.space-x-4.items-center.mt-4.px-4
+  .flex
+    == material_icon.shape(:calculate).md_18
+  .flex
+    h2.font-bold.text-xl Калькулятор
+
+.flex.flex-row.space-x-4.items-center.mb-4.px-4
+  p Укажите имеющееся у вас количество лома и определите орентировочную сумму сдачи
+.flex.justify-center
+  .flex.flex-col.justify-center.bg-white.rounded-lg.shadow-lg.w-full.mx-4    
+    = form_with  url: component_calculate_path, method: :post, class: 'w-full grid grid-cols-5 text-center gap-y-4' do |form|
+      .w-full.bg-gray-300.h-10.py-2.rounded-tl-xl Элемент
+      .w-full.bg-gray-300.h-10.py-2 Подгруппа      
+      /.w-full.bg-gray-300.h-10.py-2 Год выпуска
+      /.w-full.bg-gray-300.h-10.py-2 Условия сдачи
+      .w-full.bg-gray-300.h-10.py-2 Количество
+      .w-full.bg-gray-300.h-10.py-2 Оплата
+      .w-full.bg-gray-300.rounded-tr-xl.h-10.py-2 Сумма  
+
+      .flex.flex-col.w-full.justify-center.px-2 data-controller= 'autocomplete' data-autocomplete-url-value= component_search_path data-autocomplete-query-param-value="component_name"
+         = form.text_field :component, placeholder: 'Введите элемент', value: @component_name,  data: { 'autocomplete-target': 'input' }, role: 'combobox'
+         = form.hidden_field :component_id, data: { 'autocomplete-target': 'hidden' }
+         ul.relative.z-10 data-autocomplete-target='results'
+      .flex.flex-col.w-full.justify-center.px-2
+        = form.text_field :group
+      /.flex.justify-center.items-center.w-full
+        .flex.flex-col.items-start
+          .flex.flex-row.justify-center.items-center.space-x-4          
+            = form.radio_button :years, 'befor_ninty'
+            = form.label :years_befor_ninty, 'До 1990'
+          .flex.flex-row.justify-center.items-center.space-x-4
+            = form.radio_button :years, 'ninty'
+            = form.label :years_ninty, '1990 - 2000'   
+          .flex.flex-row.justify-center.items-center.space-x-4          
+            = form.radio_button :years, 'after_zero'
+            = form.label :years_after_zero, 'После 2000'
+      /.flex.justify-center.items-center.w-full
+        .flex.flex-col.items-start
+          .flex.flex-row.justify-center.items-center.space-x-4          
+            = form.radio_button :age, 'used'
+            = form.label :age_used, 'Б/У'
+          .flex.flex-row.justify-center.items-center.space-x-4
+            = form.radio_button :age, 'new'
+            = form.label :age_new, 'Новый'
+      .flex.flex-col.w-full.justify-center.px-2
+        = form.number_field :quantity
+      .flex.justify-center.items-center.w-full
+        .flex.flex-col.items-start
+          .flex.flex-row.justify-center.items-center.space-x-4          
+            = form.radio_button :cash, 'true'
+            = form.label :cash_true, 'Наличные'
+          .flex.flex-row.justify-center.items-center.space-x-4
+            = form.radio_button :cash, 'false'
+            = form.label :cash_false, 'Безнал'
+      .flex.flex-col.w-full.justify-center.px-2
+        = form.text_field :summ, disabled: true, value: number_to_currency(@total_cost, percision: 2)
+
+      .flex.justify-start.bg-gray-300.col-span-5.rounded-b-lg.h-10.py-1.px-2
+        .flex.w-40.h-8.bg-blue-500.rounded-xl.hover:bg-blue-400.text-white.font-bold.px-4.border-b-4.border-blue-700.hover:border-blue-500
+          = form.submit "Рассчитать", class: 'text-sm'
+
+.flex.flex-col.justify-start.p-4.space-y-4.text-justify
+  h2.text-xl Онлайн-калькулятор
+  p Простой и удобный в использовании онлайн-калькулятор, позволяющий с высокой точностью рассчитать ориентировочную стоимость сдаваемых электронных компонентов.
+  h3.text-xl.pt-2 Как пользоваться калькулятором
+  .flex
+    ul.list-decimal.px-4
+      li В раскрывающемся списке в левой части формы выберите тип интересующих Вас деталей.
+      li В появившемся втором поле выберите точное наименование детали.
+      li Укажите вес деталей в килограммах или количество в штуках.
+      li В поле «Сумма» Вы увидите ориентировочную стоимость Ваших деталей.
+      li Если у Вас детали различных типов, нажмите кнопку «Добавить элемент» и проведите новый расчет. Вы увидите стоимость интересующих Вас радиоэлектронных компонентов и общую итоговую сумму.
+      li Для некоторых компонентов следует ввести дату их выпуска и состояние (новые, б/у) в открывающихся полях. Вес можно указывать в дробных числах, используя точку или запятую.

@@ -22,6 +22,10 @@ module Untitled4
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a about resource.
+
+    config.i18n.default_locale = :ru
+    config.time_zone = 'Moscow'
+    config.exchanges_ranges = config_for(:exchanges_ranges)
     config.api_only = true
   end
 end
