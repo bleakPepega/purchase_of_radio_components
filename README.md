@@ -11,6 +11,10 @@ Things you may want to cover:
 
 * Configuration
 
+rails tailwind:build
+yarn build:css
+yarn build
+
 * Database creation
 
 * Database initialization

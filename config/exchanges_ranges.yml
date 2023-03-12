@@ -1,6 +1,6 @@
 common: &common
-  metals_exchange_range: "https://metals-api.com/api/latest?access_key=9a9o992r9b7d3s255g6rfpn368yzoixc2t73v6q18blu9h634an6bsi59e2r&symbols=XAU,XAG,XPT,XPD"
-  currency_exchange_range: ''
+  metals_url: 'http://api.metals.live/v1/spot' # 'https://metals-api.com/api/latest?access_key=9a9o992r9b7d3s255g6rfpn368yzoixc2t73v6q18blu9h634an6bsi59e2r&symbols=XAU,XAG,XPT,XPD'
+  currency_url: 'http://www.cbr.ru/scripts/XML_daily.asp?date_req='
 
 development:
   <<: *common

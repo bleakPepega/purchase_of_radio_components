@@ -1,0 +1,32 @@
+.flex.justify-center.items-center.space-x-20.border-b-2.border-gray-200.h-48
+  .w-1/4
+    h1.p-2.text-xl.font-medium Курсы Валют ЦБ РФ
+    table.rounded.rounded-md.overflow-hidden.w-full.shadow.shadow-md
+      thead
+        tr
+          th.px-2.bg-gray-300.text-left Дата
+          th.bg-gray-300 = Date.today
+      tbody
+        tr
+          td.px-2.border-b.border-md.border-gray-400.bg-gray-300 USD
+          td.text-center.border-b.border-md.border-gray-400.bg-gray-100 = number_to_currency(currencies[:USD], percision: 2)
+        tr
+          td.px-2.bg-gray-300 EUR
+          td.text-center.bg-gray-100 = number_to_currency(currencies[:EUR], percision: 2)
+  div.w-1/3
+    h1.p-2.text-xl.font-medium Товарные рынки
+    table.rounded.rounded-md.overflow-hidden.w-full.shadow.shadow-md
+      thead
+        tr
+          th.bg-gray-300
+          th.bg-gray-300 Au
+          th.bg-gray-300 Ag
+          th.bg-gray-300 Pt
+          th.bg-gray-300 PPd
+      tbody
+        tr
+          td.px-2.bg-gray-300.px-2 BID
+          td.text-center.bg-gray-100 = number_to_currency(metal_prices['gold'], precision: 2)
+          td.text-center.bg-gray-100 = number_to_currency(metal_prices['silver'], precision: 2)
+          td.text-center.bg-gray-100 = number_to_currency(metal_prices['platinum'], precision: 2)
+          td.text-center.bg-gray-100 = number_to_currency(metal_prices['palladium'], precision: 2)

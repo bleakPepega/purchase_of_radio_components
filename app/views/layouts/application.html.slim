@@ -1,13 +1,39 @@
 doctype html
 html
   head
-    title My App
+    title = t(:title)
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    = stylesheet_link_tag 'tailwind', media: 'all', 'data-turbolinks-track': 'reload'
+    = favicon_link_tag asset_path('favicon.ico')
+    = stylesheet_link_tag 'application.tailwind', 'tailwind', 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag "application", defer: true
     = csrf_meta_tags
     = csp_meta_tag
 
+.flex.justify-center.items-center
+  .flex.flex-col.lg:w-2/3
+    .flex.justify-between.justify-content.items-center.shadow-sm.shadow-lime-900.bg-asphalt.w-full.h-24.bg-brown.font-mono
+      .flex.p-2.w-1/2.items-center
+        = image_tag 'logo.png', class: 'w-24'
+        h1.uppercase.text-4xl.p-4.bold.font-medium.text-white = t(:title)
+      = render 'layouts/contacts'
 
-  body
+    .navbar.flex.w-full.bg-white.shadow-lg.border-b.border-stone-800
+      .flex.items-center.justify-between.text-base.text-stone-600.w-full.pl-8
+        .flex
+          = link_to "О нас", about_path, class: 'no-underline hover:text-black font-medium text-lg py-2'
+        .flex
+          = link_to "Калькулятор", calculator_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
+        .flex
+          = link_to "Контакты", contacts_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
+        .flex
+          = link_to "Полезная информация", information_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
+
+    body.bg-slate-100
     = yield
+
+    .flex.justify-between.justify-content.items-center.shadow-sm.shadow-lime-900.bg-asphalt.w-full.h-44.bg-brown.font-mono
+      .flex.flex-col.p-2.w-1/4.items-start.px-4
+        h2.text-md.text-white.py-2 О компании
+        p.text-white.text-sm.text-justify Подходит маленький еврейский мальчик к немецкому офицеру, дергает его за штанину и спрашивает
+        p.text-white.text-sm.text-justify - Дяденька, дяднька, а почему из одной трубы идет белый дым, а из другой черный?
+      = render 'layouts/contacts'

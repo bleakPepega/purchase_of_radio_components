@@ -93,6 +93,8 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
+    material_icons (4.0.0)
+      railties (>= 3.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.16.3)
@@ -194,6 +196,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.1)
   debug
   jsbundling-rails (~> 1.1)
+  material_icons
   pry
   pry-rails
   puma (~> 5.0)
