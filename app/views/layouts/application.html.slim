@@ -27,13 +27,18 @@ html
           = link_to "Контакты", contacts_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
         .flex
           = link_to "Полезная информация", information_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
+        .flex
+          = link_to "Каталог", catalog_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
 
     body.bg-slate-100
     = yield
+    .flex.px-2.my-2.text-sm
+      .flex.px-2 * 
+      .flex Вся информация на сайте носит справочный характер и не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации. За более подробной информацией о стоимости обращайтесь к менеджерам компании
 
     .flex.justify-between.justify-content.items-center.shadow-sm.shadow-lime-900.bg-asphalt.w-full.h-44.bg-brown.font-mono
-      .flex.flex-col.p-2.w-1/4.items-start.px-4
+      .flex.flex-col.p-2.w-1/3.items-start.px-4
         h2.text-md.text-white.py-2 О компании
-        p.text-white.text-sm.text-justify Подходит маленький еврейский мальчик к немецкому офицеру, дергает его за штанину и спрашивает
-        p.text-white.text-sm.text-justify - Дяденька, дяднька, а почему из одной трубы идет белый дым, а из другой черный?
+        p.text-white.text-xs.text-justify - Наша компания специализируется на скупке радиодеталей и ювелирного лома, содержащих драгоценные металлы.
+        p.text-white.text-xs.text-justify - Мы  занимаемся глубокой переработкой радиоэлектронных компонентов, что позволяет устанавливать максимальные цены на радиодетали и различные материалы с содержанием драгоценных металлов.
       = render 'layouts/contacts'

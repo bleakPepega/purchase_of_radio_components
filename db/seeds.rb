@@ -18,14 +18,6 @@ file.sheets.each do |sheet_name|
   file.sheet(sheet_name).parse(group: 'Группа', subgroup: 'Подгруппа', name: 'Наименование',
                                gold: 'Золото', silver: 'Серебро', platinum: 'Платина', mpg: 'МПГ') do |component|
     Component.create!(component)
-  #   each do |component|
-  #   Component.create!(group: component[:group],
-  #                     subgroup: component[:subgroup],
-  #                     name: component[:subgroup],
-  #                     gold: component[:gold],
-  #                     silver: component[:silver],
-  #                     platinum: component[:platinum],
-  #                     mpg: component[:mpg])
   end
   Rails.logger.info 'Components from sheet imported successfully.'
 end
