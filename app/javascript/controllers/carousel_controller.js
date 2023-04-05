@@ -5,6 +5,7 @@ export default class extends Controller {
     static values = { slide: Boolean }
 
     connect() {
+
         this.show()
     }
 

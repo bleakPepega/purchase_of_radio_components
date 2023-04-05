@@ -65,3 +65,4 @@ tramp
 !/app/assets/builds/.keep
 
 /node_modules
+/.idea/

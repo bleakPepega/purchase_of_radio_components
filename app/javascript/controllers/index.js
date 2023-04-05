@@ -17,5 +17,5 @@ application.register("hello", HelloController)
 import TestController from "./test_controller"
 application.register("test", TestController)
 
-import { Autocomplete } from 'stimulus-autocomplete'
-application.register('autocomplete', Autocomplete)
+// import { Autocomplete } from 'stimulus-autocomplete'
+// application.register('autocomplete', Autocomplete)

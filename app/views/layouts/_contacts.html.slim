@@ -1,8 +1,8 @@
 .flex.h-full.px-2.text-black.justify-center.bg-dark-green.items-center.text-gray-200.shadow-md.shadow-amber-100/50.w-64
   .flex.flex-col
     .flex.p-2
-      == material_icon.shape(:call).md_18
+      == image_tag("telegram.png", alt: "phone icon", height: "24", width: "24", class: "mr-2")
       p.px-2 = t(:contact_phone)
     .flex.p-2
-      == material_icon.shape(:email).md_18
-      p.text-sm.px-2 = t(:contact_email)
+      == image_tag("whatsup5.png", alt: "phone icon", height: "24", width: "24", class: "mr-2")
+      p.px-2 = t(:contact_email)
