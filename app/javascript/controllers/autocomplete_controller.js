@@ -49,6 +49,7 @@ export default class extends Controller {
 
         this.element.addEventListener('selected', event => {
             console.log('Выбран элемент:', event.detail.value)
+            this.handleClick()
             formData.append("name", event.detail.value);
             fetch("/get_group", {
                 method: "POST",
@@ -72,7 +73,7 @@ export default class extends Controller {
                 const elementId = inputElement.id;
                 const elementName = inputElement.name;
 
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 50; i++) {
                     if (elementName == `name-${i}`) {
                         document.querySelector(`#group-${i}`).value = data.value
                     }
@@ -83,6 +84,37 @@ export default class extends Controller {
             });
         });
     }
+    handleClick() {
 
+
+        const formData = new FormData();
+
+        for (let i = 0; i < 50; i++) {
+            if (document.querySelector( `#name-${i}`) != null) {
+                if (document.querySelector(`#name-${i}`).value != "") {
+                    formData.append(`quantity-${i}`, document.querySelector(`#quantityInput-${i}`).value)
+                    formData.append(`name-${i}`, document.querySelector(`#name-${i}`).value)
+                    formData.append(`cash-${i}`, document.querySelector('input[name="cash"]:checked').value);
+                }
+
+            }
+        }
+
+        fetch("/test", {
+            method: "POST",
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                return response.json(); // обрабатываем JSON-данные
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        }).then(data => {
+            const output = document.querySelector("#test111")
+            output.value = data;
+        }).catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    }
 
 }

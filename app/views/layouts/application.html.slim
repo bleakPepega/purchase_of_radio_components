@@ -11,9 +11,9 @@ html
 
 .flex.justify-center.items-center
   .flex.flex-col.lg:w-2/3
-    .flex.justify-between.justify-content.items-center.shadow-sm.shadow-lime-900.bg-asphalt.w-full.h-24.bg-brown.font-mono
+    .flex.justify-between.justify-content.items-center.shadow-sm.shadow-lime-900.bg-asphalt.w-full.h-26.bg-brown.font-mono
       .flex.p-2.w-1/2.items-center
-        = image_tag 'logo.png', class: 'w-24'
+        = image_tag 'update_logo.png', class: 'w-24'
         h1.uppercase.text-4xl.p-4.bold.font-medium.text-white = t(:title)
       = render 'layouts/contacts'
 
@@ -28,7 +28,7 @@ html
         .flex
           = link_to "Полезная информация", information_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
         .flex
-          = link_to "Каталог", catalog_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-4'
+          = link_to "Каталог", catalog_path, class: 'no-underline hover:text-black font-medium text-lg py-2 px-6'
 
     body.bg-slate-100
     = yield
@@ -36,9 +36,17 @@ html
       .flex.px-2 * 
       .flex Вся информация на сайте носит справочный характер и не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации. За более подробной информацией о стоимости обращайтесь к менеджерам компании
 
-    .flex.justify-between.justify-content.items-center.shadow-sm.shadow-lime-900.bg-asphalt.w-full.h-44.bg-brown.font-mono
-      .flex.flex-col.p-2.w-1/3.items-start.px-4
-        h2.text-md.text-white.py-2 О компании
-        p.text-white.text-xs.text-justify - Наша компания специализируется на скупке радиодеталей и ювелирного лома, содержащих драгоценные металлы.
-        p.text-white.text-xs.text-justify - Мы  занимаемся глубокой переработкой радиоэлектронных компонентов, что позволяет устанавливать максимальные цены на радиодетали и различные материалы с содержанием драгоценных металлов.
-      = render 'layouts/contacts'
+    div.flex.justify-between.items-center.shadow-sm.shadow-lime-900.bg-asphalt.w-full.h-12.bg-brown.font-mono
+      div.flex.items-center.px-2
+        = image_tag("whatsAppAndTelegramm.png", alt: "phone icon", height: "30", width: "30", class: "mr-2")
+        p.text-white.text-xs.text-justify +7 (926) 533-13-53
+      .flex.items-center
+        = image_tag("gmail.png", alt: "phone icon", height: "24", width: "24", class: "mr-2")
+        p.text-white.text-xs.text-justify skupka@gmail.com
+      .flex.px-2
+        = image_tag("whatsAppAndTelegramm.png", alt: "phone icon", height: "30", width: "30", class: "mr-2")
+        p.text-white.text-xs.text-justify +7 (916) 962-30-83
+
+
+
+//      = render 'layouts/contacts'

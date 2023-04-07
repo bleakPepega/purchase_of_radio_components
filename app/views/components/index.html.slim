@@ -22,25 +22,26 @@
       .w-full.bg-gray-300.rounded-tr-xl.h-10.py-2 Сумма  
       .div.flex.flex-col.w-full.justify-center.px-2
         .flex.flex-col.w-full.relative data-controller= 'autocomplete'
-          = text_field_tag :search, nil, id: 'name-0', name: 'name-0', data: {'target': 'autocomplete.input', action: "input->autocomplete#search" }, role: 'combobox'
+          = text_field_tag :search, nil, id: 'name-0', name: 'name-0', data: {'target': 'autocomplete.input', action: "input->autocomplete#search" }, placeholder:"Введите название элемента", class: "text-sm", role: 'combobox'
           ul.absolute.z-10.top-0.left-0.right-0.mt-10.min-w-full.w-auto.max-w-xl.mr-2.max-h-48.overflow-y-auto.bg-white data-target="autocomplete.list"
 
 
       .flex.flex-col.w-full.justify-center.px-2
-        = text_field_tag :group,nil,  id: 'group-0'
+        = text_field_tag :group, nil, id: 'group-0', placeholder: "Подгруппа", class: "text-sm", readonly: true
       .flex.flex-col.w-full.justify-center.px-2
-        = number_field_tag :quantity, 1,  name: 'quantityInput', id: 'quantityInput-0', min: 1
+        = number_field_tag :quantity, 1,  name: 'quantityInput', id: 'quantityInput-0', min: 1, data: {controller: "hello", action: "change->hello#handleClick"}
       .flex.justify-center.items-center.w-full
         .flex.flex-col.items-start
-          .flex.flex-row.justify-center.items-center.space-x-4          
-            = radio_button_tag :cash, 'true', id: 'cash-true', checked: true
-            = label_tag :cash_true, 'Наличные'
           .flex.flex-row.justify-center.items-center.space-x-4
-            = radio_button_tag :cash, 'false', id: 'cash-false'
-            = label_tag :cash_false, 'Безнал'
+            input type="radio" name="cash" value="true" id="cash-true" checked="checked" data-controller="hello" data-action="click->hello#handleClick"
+            label for="cash_true" Наличные
+          .flex.flex-row.justify-center.items-center.space-x-4
+            input type="radio" name="cash" value="false" id="cash-false" data-controller="hello" data-action="click->hello#handleClick"
+            label for="cash_false" Безнал
+
       .flex.flex-col.w-full.justify-center.px-2
         = text_field_tag :summ, nil, disabled: true, id: 'test111'
-    #container.w-full.grid.grid-cols-5.text-center.gap-y-4.py-2
+    #container.w-full
 
     div.flex.justify-between.col-span-5.bg-gray-300.rounded-b-lg.h-10.py-1.px-2
       button.flex.w-40.h-8.bg-blue-500.rounded-xl.hover:bg-blue-400.text-white.font-bold.px-4.border-b-4.border-blue-700.hover:border-blue-500 data-controller='hello' data-action='click->hello#addBlock'
@@ -54,9 +55,8 @@
   h3.text-xl.pt-2 Как пользоваться калькулятором
   .flex
     ul.list-decimal.px-4
-      li В раскрывающемся списке в левой части формы выберите тип интересующих Вас деталей.
-      li В появившемся втором поле выберите точное наименование детали.
-      li Укажите вес деталей в килограммах или количество в штуках.
+      li В раскрывающемся списке в левой части формы выберите наименование детали.
+      li Укажите количество деталей в штуках.
+      li Выберите условие оплаты.
       li В поле «Сумма» Вы увидите ориентировочную стоимость Ваших деталей.
-      li Если у Вас детали различных типов, нажмите кнопку «Добавить элемент» и проведите новый расчет. Вы увидите стоимость интересующих Вас радиоэлектронных компонентов и общую итоговую сумму.
-      li Для некоторых компонентов следует ввести дату их выпуска и состояние (новые, б/у) в открывающихся полях. Вес можно указывать в дробных числах, используя точку или запятую.
+      li Если у Вас детали различных типов, нажмите кнопку «Добавить блок» и проведите новый расчет. Вы увидите стоимость интересующих Вас радиоэлектронных компонентов и общую итоговую сумму.
