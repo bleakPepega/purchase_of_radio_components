@@ -60,7 +60,7 @@ export default class extends Controller {
     	const mock1 = document.createElement('div');
     	mock1.classList.add("flex", "flex-col", "w-full", "justify-center", "px-2")
     	const mock2 = document.createElement('div');
-    	mock2.classList.add("flex", "flex-col", "w-full", "justify-center", "px-2")
+    	mock2.classList.add("flex", "flex-col", "w-full", "justify-center", "items-center", "px-2")
     	const divider = document.createElement('div')
     	divider.classList.add("flex", "col-span-5", "h-px", "bg-gray-300")
 
@@ -85,8 +85,8 @@ export default class extends Controller {
              <button
                 data-block-id="block-${this.count}"
                 data-action="click->hello#removeBlock click->hello#handleClick"
-                class="flex w-40 h-8 bg-blue-500 rounded-xl hover:bg-blue-400 text-white font-bold px-4 border-b-4 border-blue-700 hover:border-blue-500">
-                Удалить блок
+                class="flex w-32 h-8 bg-red-500 rounded-xl hover:bg-red-400 text-white font-bold px-4 border-b-4 border-red-700 hover:border-red-500 items-center justify-center ">
+                Удалить
             </button>
            </div>
 
