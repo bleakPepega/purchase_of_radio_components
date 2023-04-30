@@ -23,6 +23,11 @@ gem 'roo'
 gem "rexml"
 gem 'stimulus-rails'
 gem 'material_icons'
+group :development do
+  gem "capistrano"
+  gem "capistrano-rails"
+  gem 'capistrano-rbenv'
+end
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
